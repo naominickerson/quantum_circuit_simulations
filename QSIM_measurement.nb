@@ -1,0 +1,427 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     16195,        418]
+NotebookOptionsPosition[     15851,        402]
+NotebookOutlinePosition[     16228,        418]
+CellTagsIndexPosition[     16185,        415]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BeginPackage", "[", "\"\<QSIM`measurement`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure0", "::", "usage"}], "=", 
+   "\"\<measure0[state] gives the resulting density matrix after a perfect \
+'0' measurement on the first qubit of density matrix 'state'\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure1", "::", "usage"}], "=", 
+   "\"\<measure1[state] gives the resulting density matrix after a perfect \
+'1' measurement on the first qubit of density matrix 'state'\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureOutcome", "::", "usage"}], "=", 
+   "\"\<measureOutcome[state,outcome] takes a density matrix input 'state' \
+and returns the resulting density matrix after the first N qubits are \
+measured perfectly to be in the state outcome which is a binary \
+string.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureAncillaPlus", "::", "usage"}], "=", 
+   "\"\<measureAncillaPlus[state,pm] returns a density matrix that is the \
+resulting state after performing a noisy measurement with a '0' result on the \
+first qubit of an input state with measurement error rate pm.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"measureAncillaPlus", "::", "warning"}], "=", 
+  "\"\<this will be deprecated in favour of 'measureOutcomeReal' \>\""}], "\
+\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure1Qreal", "::", "usage"}], "=", 
+   "\"\<measure1Qreal[state,outcome,pm] returns the resulting state after the \
+first qubit of density matrix 'state' is measured to be in outcome=1 or 0 \
+with measurement error rate pm.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureOutcomeReal", "::", "usage"}], "=", 
+   "\"\<measureOutcomeReal[inputState_,outcome_,pm_]\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"measure2even", "::", "waring"}], " ", "=", " ", 
+  "\"\<this will be deprecated: use the N qubit generalisation of this \
+function, measureNQeven\>\""}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure2even", "::", "usage"}], "=", 
+   "\"\<measure2even[state,pm] returns the density matrix resulting after a \
+noisy EVEN PARITY measurement is made on the first two qubits on input \
+density matrix 'state' with measurement error rate pm.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"measure2odd", "::", "waring"}], " ", "=", " ", 
+  "\"\<use the N qubit generalisation of this function\>\""}], "\
+\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"measure2odd", "::", "usage"}], "=", 
+    "\"\<measure2odd[state,pm] returns the density matrix resulting after a \
+noisy ODD PARITY measurement is made on the first two qubits on input density \
+matrix 'state' with measurement error rate pm.\>\""}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"measureNQeven", "::", "usage"}], "=", 
+    "\"\<measureNQeven[state,n,pm] returns the resulting density matrix after \
+the first n qubits of input density matrix 'state' are measured to be in an \
+EVEN PARITY state with noisy measurements of rate pm\>\""}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"measure0", "[", "state_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "dim", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"dim", "=", 
+      RowBox[{"Length", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"state", "\[LeftDoubleBracket]", 
+      RowBox[{
+       RowBox[{"1", ";;", 
+        RowBox[{"dim", "/", "2"}]}], ",", 
+       RowBox[{"1", ";;", 
+        RowBox[{"dim", "/", "2"}]}]}], "\[RightDoubleBracket]"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure1", "[", "state_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "dim", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"dim", "=", 
+       RowBox[{"Length", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"state", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"dim", "/", "2"}], "+", "1"}], ";;", "dim"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"dim", "/", "2"}], "+", "1"}], ";;", "dim"}]}], 
+       "\[RightDoubleBracket]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"measureOut", "[", "state_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"measure0", "[", "state", "]"}], "+", 
+   RowBox[{"measure1", "[", "state", "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureOutcome", "[", 
+    RowBox[{"state_", ",", "outcome_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", "i", ",", "result"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", "=", 
+       RowBox[{"Length", "[", "outcome", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"result", "=", "state"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<=", "n"}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"result", "=", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "outcome", "\[LeftDoubleBracket]", "i", 
+              "\[RightDoubleBracket]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{"measure0", "[", "result", "]"}], ",", 
+            RowBox[{"measure1", "[", "result", "]"}]}], "]"}]}], ";"}]}], 
+       "\[IndentingNewLine]", " ", "]"}], ";", "\[IndentingNewLine]", 
+      "result"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureAncillaPlus", "[", 
+    RowBox[{"state_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m0", ",", "m1", ",", "real"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{"measureAncillaPlus", "::", "warning"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"m0", "=", 
+       RowBox[{"measure0", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"m1", "=", 
+       RowBox[{"measure1", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"real", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "-", "pm"}], ")"}], "*", "m0"}], "+", 
+        RowBox[{"pm", "*", "m1"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"real", "/", 
+       RowBox[{"Tr", "[", "real", "]"}]}]}]}], "\[IndentingNewLine]", "]"}]}],
+   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure1Qreal", "[", 
+    RowBox[{"state_", ",", "outcome_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m0", ",", "m1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"outcome", "\[NotEqual]", "0"}], "&&", 
+         RowBox[{"outcome", "\[NotEqual]", "1"}]}], ",", 
+        RowBox[{
+         RowBox[{"Message", "[", 
+          RowBox[{"measure1Qreal", "::", "usage"}], "]"}], ";", 
+         RowBox[{"Return", "[", "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"m0", "=", 
+       RowBox[{"measure0", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"m1", "=", 
+       RowBox[{"measure1", "[", "state", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"outcome", "\[Equal]", "0"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", "pm"}], ")"}], "*", "m0"}], "+", 
+         RowBox[{"pm", "*", "m1"}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", "pm"}], ")"}], "*", "m1"}], "+", 
+         RowBox[{"pm", "*", "m0"}]}]}], "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureOutcomeReal", "[", 
+    RowBox[{"inputState_", ",", "outcome_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "n", ",", "state"}], "}"}], ",", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", "=", 
+       RowBox[{"Length", "[", "outcome", "]"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<", 
+         RowBox[{"n", "+", "1"}]}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "outcome", "\[LeftDoubleBracket]", "i", 
+              "\[RightDoubleBracket]"}], "\[NotEqual]", "0"}], "&&", 
+            RowBox[{
+             RowBox[{
+             "outcome", "\[LeftDoubleBracket]", "i", 
+              "\[RightDoubleBracket]"}], "\[NotEqual]", "1"}]}], ",", 
+           RowBox[{
+            RowBox[{"Message", "[", 
+             RowBox[{"measureOutcomeReal", "::", "usage"}], "]"}], ";", 
+            RowBox[{"Return", "[", "]"}], ";"}]}], "]"}], ";"}]}], "]"}], ";",
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"state", "=", "inputState"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<", 
+         RowBox[{"n", "+", "1"}]}], ",", 
+        RowBox[{"i", "++"}], ",", 
+        RowBox[{
+         RowBox[{"state", "=", 
+          RowBox[{"measure1Qreal", "[", 
+           RowBox[{"state", ",", 
+            RowBox[{
+            "outcome", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}],
+             ",", "pm"}], "]"}]}], ";"}]}], "]"}], ";", "\[IndentingNewLine]",
+       "\[IndentingNewLine]", "state"}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure2even", "[", 
+    RowBox[{"state_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "m00", ",", "m01", ",", "m10", ",", "m11", ",", "real00", ",", "real11",
+        ",", "update"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{"measure2even", "::", "warning"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"m00", "=", 
+       RowBox[{"measure1Qreal", "[", 
+        RowBox[{
+         RowBox[{"measure1Qreal", "[", 
+          RowBox[{"state", ",", "0", ",", "pm"}], "]"}], ",", "0", ",", 
+         "pm"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"m11", "=", 
+       RowBox[{"measure1Qreal", "[", 
+        RowBox[{
+         RowBox[{"measure1Qreal", "[", 
+          RowBox[{"state", ",", "1", ",", "pm"}], "]"}], ",", "1", ",", 
+         "pm"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"update", "=", 
+       RowBox[{"m00", "+", "m11"}]}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measure2odd", "[", 
+    RowBox[{"state_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m01", ",", "m10", ",", "update"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{"measure2odd", "::", "warning"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"m01", "=", 
+       RowBox[{"measure1Qreal", "[", 
+        RowBox[{
+         RowBox[{"measure1Qreal", "[", 
+          RowBox[{"state", ",", "0", ",", "pm"}], "]"}], ",", "1", ",", 
+         "pm"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"m10", "=", 
+       RowBox[{"measure1Qreal", "[", 
+        RowBox[{
+         RowBox[{"measure1Qreal", "[", 
+          RowBox[{"state", ",", "1", ",", "pm"}], "]"}], ",", "0", ",", 
+         "pm"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"update", "=", 
+       RowBox[{"m01", "+", "m10"}]}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"measureNQeven", "[", 
+    RowBox[{"state_", ",", "n_", ",", "pm_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "basis", ",", "parityBasis", ",", "probs", ",", "product", ",", "meas", 
+       ",", "pM", ",", "pEven", ",", "pOdd", ",", "stateEven", ",", 
+       "stateOdd"}], "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"basis", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"IntegerDigits", "[", 
+          RowBox[{"#", ",", "2", ",", "n"}], "]"}], "&"}], "/@", 
+        RowBox[{"Range", "[", 
+         RowBox[{"0", ",", 
+          RowBox[{
+           RowBox[{"2", "^", "n"}], "-", "1"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"parityBasis", "=", 
+       RowBox[{"Gather", "[", 
+        RowBox[{"basis", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Divisible", "[", 
+            RowBox[{
+             RowBox[{"Total", "[", "#1", "]"}], ",", "2"}], "]"}], "\[Equal]", 
+           RowBox[{"Divisible", "[", 
+            RowBox[{
+             RowBox[{"Total", "[", "#2", "]"}], ",", "2"}], "]"}]}], "&"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Plus", "@@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"measureOutcomeReal", "[", 
+           RowBox[{"state", ",", "#", ",", "pm"}], "]"}], "&"}], "/@", 
+         RowBox[{
+         "parityBasis", "\[LeftDoubleBracket]", "1", 
+          "\[RightDoubleBracket]"}]}], ")"}]}]}]}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"End", "[", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.595944464262467*^9, 3.595944588037843*^9}, {
+  3.5959446203650756`*^9, 3.5959446417692156`*^9}, {3.59594477851989*^9, 
+  3.595944847438781*^9}, {3.5959449388959255`*^9, 3.595945072745309*^9}, {
+  3.5959451123952737`*^9, 3.5959451784498787`*^9}, {3.595945382566288*^9, 
+  3.595945386012633*^9}, {3.595945419019933*^9, 3.595945419896021*^9}, {
+  3.595947424580138*^9, 3.5959474512461386`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5959447003450727`*^9, 3.595944763061344*^9}}]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{707, 537},
+WindowMargins->{{Automatic, 0}, {Automatic, 49}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 15193, 377, 2612, "Input",
+ InitializationCell->True],
+Cell[15753, 399, 94, 1, 31, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
