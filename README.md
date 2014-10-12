@@ -1,7 +1,7 @@
 QSIM
 ====
 
-mathematica packages for simulating noisy quantum circuits
+Mathematica packages for simulating noisy quantum circuits. For more detail on error models used for noisy operations please refer to [this paper](http://www.nature.com/ncomms/journal/v4/n4/abs/ncomms2773.html).
 
 # Importing Packages
 
