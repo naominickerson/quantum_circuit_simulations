@@ -98,3 +98,23 @@ where `mat` is 4x4 matrix representing the two-qubit operation to be applied bet
 
 takes a density matrix ``state`` of dimension 2^n, where n is the number of qubits, and returns a new density matrix where the qubits at positions q1 and q2 have been exchanged. For large system sizes consider using swapQubitsSparse
 
+
+
+## Measurement
+
+### Single qubit measurements
+
+`measure0[state]` gives the resulting density matrix after a perfect '0' measurement on the first qubit of density matrix `state`. `measure1[state]` gives the resulting density matrix after a perfect '1' measurement. To simulate measurement in a different basis, a rotation operation should first be applied to the relevant qubit. 
+
+### General measurement outcome
+
+`measureOutcome[state,outcome]` takes a density matrix input `state` and returns the resulting density matrix after the first N qubits are measured perfectly in the computational basis to be in the states defined by `outcome` which is a list on N binary measurement outcomes, e.g. `{0,1,1}`. 
+
+### Noisy measurements
+
+`measureOutcomeReal[inputState,outcome,pm]` acts exactly as `measureOutcome` but where measurements suffer from errors at a rate `pm`. 
+
+
+### Even/Odd parity projections
+
+`measureNQeven[state,n,pm]` returns the resulting density matrix after the first `n` qubits of input density matrix `state` are measured to be in an even parity state with noisy measurements of rate `pm`
