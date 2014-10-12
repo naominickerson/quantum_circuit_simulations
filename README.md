@@ -3,7 +3,23 @@ QSIM
 
 mathematica packages for simulating noisy quantum circuits
 
+# Importing Packages
+
+Import the required packages from the ``/quantum_circuit_simulations`` directory. 
+
+```
+SetDirectory["../quantum_circuit_simulations/"];
+
+Get["QSIM_basicFunctions.m"]
+Get["QSIM_errorAnalysis.m"]
+Get["QSIM_superoperators.m"]
+
+```
+
+# Usage
+
 ## Basic Definitions
+``QSIM_basicFunctions.m``
 
 ### Define initial state
 The density matrices for the most common initial states are predefined: 
@@ -61,6 +77,7 @@ Concurrence = Concurrence[state] calculates the concurrence of a two qubit densi
 
 
 ## Gates
+``QSIM_basicFunctions.m`` and ``QSIM_noise.m``
 
 The following gates are predefined: 
 
@@ -104,6 +121,7 @@ applies the single qubit  ```gate``` to the qubit at position ```pos``` in the `
 
 
 ## Measurement
+``QSIM_measurement.m``
 
 ### Single qubit measurements
 
@@ -125,6 +143,7 @@ applies the single qubit  ```gate``` to the qubit at position ```pos``` in the `
 
 
 # Using Superoperators to describe complex noisy processes
+`QSIM_superoperators.m`
 
 Any noisy quantum process can be fully described by a superoperator, which is a probabalistic decomposition of the full operation into Kraus operators, which are unitary. while it can be a slow calculation to find the superoperator describing a noisy circuit, once it has been calculated the operation can then be applied any number of times to any input state very quickly. 
 
