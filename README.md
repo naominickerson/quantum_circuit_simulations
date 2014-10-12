@@ -3,7 +3,7 @@ QSIM
 
 mathematica packages for simulating noisy quantum circuits
 
-## Basic Tools
+## Basic Definitions
 
 ### Define initial state
 The density matrices for the most common initial states are predefined: 
@@ -37,9 +37,7 @@ phi0 = {{1/2, 0, 0, 1/2}, {0, 0, 0, 0}, {0, 0, 0, 0}, {1/2, 0, 0, 1/2}}
 
 ```
 
-### Basic Operations
-
-#### Simple Operations
+### Common Operations
 
 ```
 CT = " conjugate transpose "
@@ -53,7 +51,18 @@ CT[plus] = {{1/2, 1/2}, {1/2, 1/2}}
 KP[one,plus]={{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 1/2, 1/2}, {0, 0, 1/2, 1/2}}
 ```
 
-#### Gates
+
+### State measures
+
+```
+Fidelity = Fidelity[state1,state2] gives the fidelity between two density matrices state1 and state2
+Concurrence = Concurrence[state] calculates the concurrence of a two qubit density matrix 'state'
+```
+
+
+## Gates
+
+The following gates are predefined: 
 
 ```
 pX = "pauli x matrix"
@@ -74,29 +83,23 @@ To apply a gate to a state, e.g.
 
 ```
 cnot.phi0.CT[cnot] = {{1/2, 0, 1/2, 0}, {0, 0, 0, 0}, {1/2, 0, 1/2, 0}, {0, 0, 0, 0}}
-
 ```
 
-#### State measures
-
-```
-Fidelity = Fidelity[state1,state2] gives the fidelity between two density matrices state1 and state2
-Concurrence = Concurrence[state] calculates the concurrence of a two qubit density matrix 'state'
-```
-
-### Operations on larger states
+### Noisy operations on larger states
 
 ```applyOneQubitGate[state,pos,gate,pg:1] ```
 
 applies the single qubit  ```gate``` to the qubit at position ```pos``` in the `state`. The final parameter ``pg`` can be optionally specified to turn the gate into a noisy one. In this case, the perfect gate is performed, followed by a random pauli operation on the qubit with a probability ```pg```.
 
-``` twoQGate[nQ,q1,q1,mat] ``` 
 
-where `mat` is 4x4 matrix representing the two-qubit operation to be applied between qubit at position `q1` and `q2`, and there are a total of `nQ` qubits. 
+`applyNoisyGate[state,pos1,pos2,gate_,pg]` returns the resulting density matrix describing the state after the `gate` is applied to qubits at `pos1` and `pos2` when the two qubit operation described suffers from noise at a rate `pg`. 
 
-```swapQubits[state,{q1,q2}] ```
 
-takes a density matrix ``state`` of dimension 2^n, where n is the number of qubits, and returns a new density matrix where the qubits at positions q1 and q2 have been exchanged. For large system sizes consider using swapQubitsSparse
+`applyMemoryNoise[state,pos,pmem,scaling]` returns the resulting density matrix describing the state after the qubit at position `pos` has suffered memory noise at an error rate of `pmem`. 
+
+
+```swapQubits[state,{q1,q2}] ``` takes a density matrix ``state`` of dimension 2^n, where n is the number of qubits, and returns a new density matrix where the qubits at positions q1 and q2 have been exchanged. For large system sizes consider using swapQubitsSparse
+
 
 
 
