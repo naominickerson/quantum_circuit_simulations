@@ -36,3 +36,50 @@ zero = {{1,0},{0,1}}
 phi0 = {{1/2, 0, 0, 1/2}, {0, 0, 0, 0}, {0, 0, 0, 0}, {1/2, 0, 0, 1/2}}
 
 ```
+
+### Basic Operations
+
+#### Simple Operations
+
+```
+CT = " conjugate transpose "
+KP = " Kronecker product " 
+```
+
+For example: 
+
+``` 
+CT[plus] = {{1/2, 1/2}, {1/2, 1/2}} 
+KP[one,plus]={{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 1/2, 1/2}, {0, 0, 1/2, 1/2}}
+```
+
+#### Gates
+
+```
+pX = "pauli x matrix"
+pY = "pauli y matrix"
+pZ = "pauli z matrix"
+id = "identity matrix 1qubit"
+had = "hadamard matrix"
+hadY = "Y-hadamard matrix"
+cz = "two qubit CZ gate"
+cnot = "two qubit CNOT gate"
+cnotB = "two qubit CNOT gate in reverse direction"
+cy = "two qubit controlled-Y gate"
+swap = "two qubit swap gate"
+sm = "phase gate, {{1,0},{0,i}}"
+```
+
+To apply a gate to a state, e.g. 
+
+```
+cnot.phi0.CT[cnot] = {{1/2, 0, 1/2, 0}, {0, 0, 0, 0}, {1/2, 0, 1/2, 0}, {0, 0, 0, 0}}
+
+```
+
+#### State measures
+
+```
+Fidelity = Fidelity[state1,state2] gives the fidelity between two density matrices state1 and state2
+Concurrence = Concurrence[state] calculates the concurrence of a two qubit density matrix 'state'
+```
