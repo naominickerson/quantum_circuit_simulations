@@ -83,3 +83,18 @@ cnot.phi0.CT[cnot] = {{1/2, 0, 1/2, 0}, {0, 0, 0, 0}, {1/2, 0, 1/2, 0}, {0, 0, 0
 Fidelity = Fidelity[state1,state2] gives the fidelity between two density matrices state1 and state2
 Concurrence = Concurrence[state] calculates the concurrence of a two qubit density matrix 'state'
 ```
+
+### Operations on larger states
+
+```applyOneQubitGate[state,pos,gate,pg:1] ```
+
+applies the single qubit  ```gate``` to the qubit at position ```pos``` in the `state`. The final parameter ``pg`` can be optionally specified to turn the gate into a noisy one. In this case, the perfect gate is performed, followed by a random pauli operation on the qubit with a probability ```pg```.
+
+``` twoQGate[nQ,q1,q1,mat] ``` 
+
+where `mat` is 4x4 matrix representing the two-qubit operation to be applied between qubit at position `q1` and `q2`, and there are a total of `nQ` qubits. 
+
+```swapQubits[state,{q1,q2}] ```
+
+takes a density matrix ``state`` of dimension 2^n, where n is the number of qubits, and returns a new density matrix where the qubits at positions q1 and q2 have been exchanged. For large system sizes consider using swapQubitsSparse
+
